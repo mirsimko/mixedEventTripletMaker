@@ -16,7 +16,6 @@
 #include "StMixerEvent.h"
 #include "StMixerTriplet.h"
 #include "StMixerHists.h"
-#include "StPicoHFMaker/StHFCuts.h"
 #include "StPicoHFMaker/StHFClosePair.h"
 #include "StPicoHFMaker/StHFTriplet.h"
 #include "StRoot/StRefMultCorr/StRefMultCorr.h"
