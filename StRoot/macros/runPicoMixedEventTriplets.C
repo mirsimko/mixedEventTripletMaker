@@ -65,8 +65,8 @@ void runPicoMixedEventTriplets(const Char_t *inputFile="test.list", const Char_t
   // ========================================================================================
   //   Testing 
   // ========================================================================================
-  Int_t nEvents = 1e9;
-  //Int_t nEvents = 1000;
+  // Int_t nEvents = 1e9;
+  Int_t nEvents = 1000;
   if (nEvents < 1e8)
     cout << "Warning: the number of events is set to " << nEvents << endl;
 
@@ -120,6 +120,9 @@ void runPicoMixedEventTriplets(const Char_t *inputFile="test.list", const Char_t
   hfCuts->addTriggerId(450015);    // vpdmb-5-p-nobsmd 
   hfCuts->addTriggerId(450025);    // vpdmb-5-p-nobsmd 
 
+  // ====================================================
+  // Change cuts classes and se cuts for your analysis
+  // ====================================================
   StLambdaCCuts::setEventCuts(hfCuts);
   StLambdaCCuts::threePartDecayRead::setLambdaCCuts(hfCuts);
 

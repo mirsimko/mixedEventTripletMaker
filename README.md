@@ -20,21 +20,26 @@ git clone https://github.com/mirsimko/mixedEventTripletMaker.git
 mkdir StRoot
 cd StRoot
 ln -s ../mixedEventTripletMaker/StRoot/StPicoMixedEventTripletMaker
-ln -s ../auau200GeVRun14/StPicoHFMaker
-ln -s ../auau200GeVRun14/StPicoCutsBase
-ln -s ../auau200GeVRun14/StPicoPrescales
-ln -s ../auau200GeVRun14/StPicoKFVertexFitter
+ln -s ../auau200GeVRun14/StRoot/StPicoHFMaker
+ln -s ../auau200GeVRun14/StRoot/StPicoCutsBase
+ln -s ../auau200GeVRun14/StRoot/StPicoPrescales
+ln -s ../auau200GeVRun14/StRoot/StPicoKFVertexFitter
 mkdir macros
 cd macros
 ln -s ../mixedEventTripletMaker/StRoot/runPicoMixedEventTriplets.C
-ln -s ../auau200GeVRun14/macros/loadSharedHFLibraries.C
+ln -s ../auau200GeVRun14/StRoot/macros/loadSharedHFLibraries.C
 ```
 
 Add mixed event maker classes to the `loadSharedHFLibraries.C` macro 
-in `auau200GeVRun14/StRoot/macros` by adding a line
+in `auau200GeVRun14/StRoot/macros` by adding this line:	
 ```C++
 gSystem->Load("StPicoMixedEventTripletMaker");
 ```
 
 Correct versions of picoDstMaker and StRefMultCorr are needed as well.
 
+For your own analysis, change the `StPicoEventMixer::mixEvents()` function and 
+the PID functions in `StRoot/StPicoMixedEventTripletMaker/StPicoEventMixer.cxx`,
+add your own histograms in the `StRoot/StPicoMixedEventTripletMaker/StMixerHists.h/.cxx`
+files, and insert your own cuts class, based on `StRoot/StPicoHFMaker/StHFCuts.h/.cxx`
+in `/StRoot/runPicoMixedEventTriplets.C`.

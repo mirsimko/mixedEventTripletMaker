@@ -114,9 +114,6 @@ bool StPicoEventMixer::addPicoEvent(StPicoDst const* const picoDst, float weight
 void StPicoEventMixer::mixEvents() {
   // Class that mixes the events ... change for your analysis
   size_t const nEvent = mEvents.size();
-  if(StPicoMixedEventMaker::fillSingleTrackHistos)
-  {
-  }
 
   int const nTracksEvt1 = mEvents.at(0)->getNoProtons();
   // Check if there are protons in the first evt for saving time (cannot be done if 

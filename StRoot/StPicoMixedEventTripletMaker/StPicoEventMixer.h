@@ -49,7 +49,13 @@ class StPicoEventMixer {
   void setEventBuffer(int buffer);
   void setSameEvtNtuple(TNtuple *tuple)  { mSETuple = tuple; }
   void setMixedEvtNtuple(TNtuple *tuple) { mMETuple = tuple; }
+
+  // ========================================
+  // Change for your analysis
+  // ========================================
   void mixEvents();
+  // ========================================
+
   void finish();
   void setHFCuts(StHFCuts * hfCuts) { mHFCuts = hfCuts; }
   StHFCuts * getHFCuts() { return mHFCuts; }
@@ -65,10 +71,15 @@ class StPicoEventMixer {
   bool isGoodEvent(StPicoDst const * const picoDst);
   bool isGoodTrigger(StPicoEvent const * const) const;
   bool isGoodTrack(StPicoTrack const * const trk);
+
+  // ========================================
+  // change these for your own PID
   bool isPion(StPicoTrack const * const, float beta, StThreeVectorF const& pVertex);
   bool isKaon(StPicoTrack const * const, float beta, StThreeVectorF const& pVertex);
   bool isProton(StPicoTrack const * const, float beta, StThreeVectorF const& pVertex);
   bool isTPCHadron(StPicoTrack const * const, int pidFlag);
+  // ========================================
+
   bool isGoodTriplet(StMixerTriplet const& triplet);
   int getLcPtIndex(StMixerTriplet const& pair) const;
 
