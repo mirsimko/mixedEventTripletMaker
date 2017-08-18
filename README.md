@@ -43,3 +43,6 @@ the PID functions in `StRoot/StPicoMixedEventTripletMaker/StPicoEventMixer.cxx`,
 add your own histograms in the `StRoot/StPicoMixedEventTripletMaker/StMixerHists.h/.cxx`
 files, and insert your own cuts class, based on `StRoot/StPicoHFMaker/StHFCuts.h/.cxx`
 in `/StRoot/runPicoMixedEventTriplets.C`.
+
+More information on the code can be found here: 
+https://www.star.bnl.gov/protected/heavy/msimko/HF_PWG/LC_2017_08_10.pdf
