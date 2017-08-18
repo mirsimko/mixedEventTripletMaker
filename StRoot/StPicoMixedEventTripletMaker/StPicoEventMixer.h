@@ -65,9 +65,9 @@ class StPicoEventMixer {
   bool isGoodEvent(StPicoDst const * const picoDst);
   bool isGoodTrigger(StPicoEvent const * const) const;
   bool isGoodTrack(StPicoTrack const * const trk);
-  bool isTpcPion(StPicoTrack const * const);
-  bool isTpcKaon(StPicoTrack const * const);
-  bool isTpcProton(StPicoTrack const * const);
+  bool isPion(StPicoTrack const * const, float beta, StThreeVectorF const& pVertex);
+  bool isKaon(StPicoTrack const * const, float beta, StThreeVectorF const& pVertex);
+  bool isProton(StPicoTrack const * const, float beta, StThreeVectorF const& pVertex);
   bool isTPCHadron(StPicoTrack const * const, int pidFlag);
   bool isGoodTriplet(StMixerTriplet const& triplet);
   int getLcPtIndex(StMixerTriplet const& pair) const;

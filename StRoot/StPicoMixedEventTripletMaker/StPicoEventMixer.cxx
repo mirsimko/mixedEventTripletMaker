@@ -74,22 +74,19 @@ bool StPicoEventMixer::addPicoEvent(StPicoDst const* const picoDst, float weight
     const float beta = mHFCuts->getTofBeta(trk);
 
     bool saveTrack = false;
-    int pidFlag = StPicoCutsBase::kPion;
-    if( isTpcPion(trk) && mHFCuts->isHybridTOFPion(trk, beta, pVertex) && mHFCuts->cutMinDcaToPrimVertex(trk, pidFlag)) {
+    if( isPion(trk, beta, pVertex) ){
       isTpcPi = true;
       isTofPi = true;
       saveTrack = true;
       event->addPion(event->getNoTracks());
     }
-    pidFlag = StPicoCutsBase::kKaon;
-    if(isTpcKaon(trk) && mHFCuts->isTOFKaon(trk, beta, pVertex) && mHFCuts->cutMinDcaToPrimVertex(trk, pidFlag)) {
+    if(isKaon(trk, beta, pVertex) ) {
       isTpcK = true;
       isTofK = true;
       saveTrack = true;
       event->addKaon(event->getNoTracks());
     }
-    pidFlag = StPicoCutsBase::kProton;
-    if(isTpcProton(trk) && mHFCuts->isTOFProton(trk, beta, pVertex) && mHFCuts->cutMinDcaToPrimVertex(trk, pidFlag)) {
+    if(isProton(trk, beta, pVertex) ){
       isTpcP = true;
       isTofP = true;
       saveTrack = true;
@@ -115,6 +112,7 @@ bool StPicoEventMixer::addPicoEvent(StPicoDst const* const picoDst, float weight
 }
 //-----------------------------------------------------------
 void StPicoEventMixer::mixEvents() {
+  // Class that mixes the events ... change for your analysis
   size_t const nEvent = mEvents.size();
   if(StPicoMixedEventMaker::fillSingleTrackHistos)
   {
@@ -234,6 +232,7 @@ void StPicoEventMixer::mixEvents() {
 // _________________________________________________________
 void StPicoEventMixer::fillTracks(StMixerEvent* evt, bool isSameEvt, int pidFlag)
 {
+  // Single tack control plots ... change for your analysis
   if (!fillSinglePartHists)
     return;
 
@@ -323,19 +322,25 @@ bool StPicoEventMixer::isGoodEvent(StPicoDst const * const picoDst)
   return (mHFCuts->isGoodEvent(picoDst));
 }
 //-----------------------------------------------------------
-bool StPicoEventMixer::isTpcPion(StPicoTrack const * const trk)
+//-----------------------------------------------------------
+// PID functions: Change for yourt own PID
+//-----------------------------------------------------------
+bool StPicoEventMixer::isPion(StPicoTrack const * const trk, float beta, StThreeVectorF const & pVertex)
 {
-  return( isTPCHadron(trk, StPicoCutsBase::kPion));
+  int pidFlag = StPicoCutsBase::kPion;
+  return( isTPCHadron(trk, pidFlag) && mHFCuts->isHybridTOFPion(trk, beta, pVertex) && mHFCuts->cutMinDcaToPrimVertex(trk, pidFlag) );
 }
 //-----------------------------------------------------------
-bool StPicoEventMixer::isTpcKaon(StPicoTrack const * const trk)
+bool StPicoEventMixer::isKaon(StPicoTrack const * const trk, float beta, StThreeVectorF const & pVertex)
 {
-  return( isTPCHadron(trk, StPicoCutsBase::kKaon));
+  int pidFlag = StPicoCutsBase::kKaon;
+  return( isTPCHadron(trk, pidFlag) && mHFCuts->isTOFKaon(trk, beta, pVertex) && mHFCuts->cutMinDcaToPrimVertex(trk, pidFlag) );
 }
 //-----------------------------------------------------------
-bool StPicoEventMixer::isTpcProton(StPicoTrack const * const trk)
+bool StPicoEventMixer::isProton(StPicoTrack const * const trk, float beta, StThreeVectorF const & pVertex)
 {
-  return( isTPCHadron(trk, StPicoCutsBase::kProton));
+  int pidFlag = StPicoCutsBase::kProton;
+  return( isTPCHadron(trk, pidFlag) && mHFCuts->isTOFProton(trk, beta, pVertex) && mHFCuts->cutMinDcaToPrimVertex(trk, pidFlag) );
 }
 //-----------------------------------------------------------
 bool StPicoEventMixer::isTPCHadron(StPicoTrack const * const trk, int pidFlag)
@@ -343,6 +348,8 @@ bool StPicoEventMixer::isTPCHadron(StPicoTrack const * const trk, int pidFlag)
   return( mHFCuts->isTPCHadron(trk, pidFlag));
 }
 //-----------------------------------------------------------
+//-----------------------------------------------------------
+//
 bool StPicoEventMixer::isGoodTrack(StPicoTrack const * const trk)
 {
   return (mHFCuts->isGoodTrack(trk));
