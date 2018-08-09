@@ -208,15 +208,21 @@ void StPicoEventMixer::mixEvents() {
 	    // Fill the NTuples here
 	    // tbd
 
+	    float weight = mEvents.at(0)->weight();
+
+	    TNtuple* nt = 0;
 	    if(iEvt2 == 0 && iEvt2 == 0)
 	    {
 	      // cout << "Evt " << mEvents.at(0)->eventId() << endl;
-	      mHists->fillSameEvtTriplet(&triplet, signBits ,mEvents.at(0)->weight());
+	      mHists->fillSameEvtTriplet(&triplet, signBits , weight);
+	      nt = mSETuple;
 	    }
 	    else
 	    {
-	      mHists->fillMixedEvtTriplet(&triplet, signBits, mEvents.at(0)->weight());
+	      mHists->fillMixedEvtTriplet(&triplet, signBits, weight);
+	      nt = mMETuple;
 	    }
+
 	  } //first event track loop 
 	} //second event track loop
       } // the third event track loop
